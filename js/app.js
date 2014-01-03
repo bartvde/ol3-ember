@@ -44,6 +44,9 @@ App.IndexRoute = Ember.Route.extend({
         title: layer.get('title'),
         visible: layer.get('visible')
       });
+      obj.addObserver('visible', layer, function(evt) {
+        this.set('visible', evt.get('visible'));
+      });
       result.push(obj);
       layer.on('change:title', function(evt) {
           this.set('title', evt.target.get('title'));
