@@ -4,7 +4,7 @@ App.Router.map(function() {
     // put your routes here
 });
 
-// create the OpenLayers Map its layers
+// create the OpenLayers Map and its layers
 var map = new ol.Map({
     renderer: ol.RendererHint.CANVAS,
     layers: [new ol.layer.Tile({
