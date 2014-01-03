@@ -37,7 +37,6 @@ App.IndexView = Ember.View.extend({
 
 App.IndexController = Ember.ArrayController.extend({
   init: function() {
-    this._super();
     var lc = map.getLayers();
     // if an item is removed from the layers collection, update our view
     lc.on('remove', function(evt) {
