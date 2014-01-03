@@ -36,49 +36,45 @@ App.IndexView = Ember.View.extend({
 });
 
 App.IndexController = Ember.ArrayController.extend({
-  actions: {
-    removeSelected: function(item) {
-      var idx = this.indexOf(item);
-      map.getLayers().removeAt(idx);
-      this.removeObject(item);
-    }
-  },
-  removeByTitle: function(title) {
-    this.removeObject(this.findBy('title', title));
-  }
-});
-
-App.IndexRoute = Ember.Route.extend({
-  model: function() {
+  init: function() {
+    this._super();
     var lc = map.getLayers();
     // if an item is removed from the layers collection, update our view
     lc.on('remove', function(evt) {
         var el = evt.getElement();
-        this.controller.removeByTitle(el.get('title'));
+        this.removeObject(this.findBy('title', el.get('title')));
     }, this);
     var layers = lc.getArray();
-    var result = [];
     for (var i =0, ii=layers.length; i<ii; ++i) {
-      var layer = layers[i];
-      // transform our layer objects into Ember objects
-      var obj = Ember.Object.create({
-        title: layer.get('title'),
-        visible: layer.get('visible')
-      });
-      // if the visible checkbox is used, update our layer object
-      obj.addObserver('visible', layer, function(evt) {
-        this.set('visible', evt.get('visible'));
-      });
-      result.push(obj);
-      // if our layer's title is changed, update our Ember object
-      layer.on('change:title', function(evt) {
-          this.set('title', evt.target.get('title'));
-      }, obj);
-      // if our layer's visible property is changed, update our Ember object
-      layer.on('change:visible', function(evt) {
-          this.set('visible', evt.target.get('visible'));
-      }, obj);
+        var layer = layers[i];
+        var obj = Ember.Object.create({
+            title: layer.get('title'),
+            visible: layer.get('visible')
+        });
+        // if the visible checkbox is used, update our layer object
+        obj.addObserver('visible', layer, function(evt) {
+            this.set('visible', evt.get('visible'));
+        });
+        this.pushObject(obj);
+        // if our layer's title is changed, update our Ember object
+        layer.on('change:title', function(evt) {
+            this.set('title', evt.target.get('title'));
+        }, obj);
+        // if our layer's visible property is changed, update our Ember object
+        layer.on('change:visible', function(evt) {
+            this.set('visible', evt.target.get('visible'));
+        }, obj);
     }
-    return result;
+  },
+  actions: {
+    removeSelected: function(item) {
+      var idx = this.indexOf(item);
+      if (idx !== -1) {
+          map.getLayers().removeAt(idx);
+      }
+      this.removeObject(item);
+    }
   }
 });
+
+App.IndexRoute = Ember.Route.extend({});
