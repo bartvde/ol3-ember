@@ -23,7 +23,7 @@
   <script type="text/x-handlebars" id="index">
     <ul>
     {{#each item in model}}
-      <li>{{get-title item}}</li>
+      <li>{{view Ember.Checkbox checkedBinding="item.visible"}} {{item.title}}</li>
     {{/each}}
     </ul>
   </script>

@@ -27,6 +27,7 @@ var map = new ol.Map({
   })
 });
 
+
 App.IndexView = Ember.View.extend({
   didInsertElement: function() {
       map.set('target', 'map');
@@ -35,10 +36,22 @@ App.IndexView = Ember.View.extend({
 
 App.IndexRoute = Ember.Route.extend({
   model: function() {
-    return map.getLayers().getArray();
+    var layers = map.getLayers().getArray();
+    var result = [];
+    for (var i =0, ii=layers.length; i<ii; ++i) {
+      var layer = layers[i];
+      var obj = Ember.Object.create({
+        title: layer.get('title'),
+        visible: layer.get('visible')
+      });
+      result.push(obj);
+      layer.on('change:title', function(evt) {
+          this.set('title', evt.target.get('title'));
+      }, obj);
+      layer.on('change:visible', function(evt) {
+          this.set('visible', evt.target.get('visible'));
+      }, obj);
+    }
+    return result;
   }
-});
-
-Ember.Handlebars.helper('get-title', function(layer) {
-  return layer.get('title');
 });
