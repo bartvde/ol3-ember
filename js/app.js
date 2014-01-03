@@ -34,9 +34,20 @@ App.IndexView = Ember.View.extend({
   }
 });
 
+App.IndexController = Ember.ArrayController.extend({
+  actions: {
+    removeSelected: function(item) {
+      var idx = this.indexOf(item);
+      map.getLayers().removeAt(idx);
+      this.removeObject(item);
+    }
+  }
+});
+
 App.IndexRoute = Ember.Route.extend({
   model: function() {
-    var layers = map.getLayers().getArray();
+    var lc = map.getLayers();
+    var layers = lc.getArray();
     var result = [];
     for (var i =0, ii=layers.length; i<ii; ++i) {
       var layer = layers[i];
