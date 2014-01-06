@@ -54,30 +54,37 @@ App.IndexView = Ember.View.extend({
   }
 });
 
-App.IndexController = Ember.ArrayController.extend({
+App.LayerSwitcherComponent = Ember.Component.extend({
   init: function() {
-    var lc = map.getLayers();
-    // if an item is removed from the layers collection, update our view
-    lc.on('remove', function(evt) {
-        var el = evt.getElement();
-        this.removeObject(this.findBy('title', el.get('title')));
-    }, this);
-    var layers = lc.getArray();
-    for (var i =0, ii=layers.length; i<ii; ++i) {
-        var layer = layers[i];
-        var mapLayer = new App.MapLayer(layer);
-        this.pushObject(mapLayer);
-    }
+      this._super();
+      var lc = map.getLayers();
+      // if an item is removed from the layers collection, update our view
+      lc.on('remove', function(evt) {
+          var el = evt.getElement();
+          this.model.removeObject(this.model.findBy('title', el.get('title')));
+      }, this);
   },
   actions: {
     removeSelected: function(item) {
-      var idx = this.indexOf(item);
-      if (idx !== -1) {
-          map.getLayers().removeAt(idx);
-      }
-      this.removeObject(item);
+        var idx = this.model.indexOf(item);
+        if (idx !== -1) {
+            map.getLayers().removeAt(idx);
+        }
+        this.model.removeObject(item);
     }
   }
 });
 
-App.IndexRoute = Ember.Route.extend({});
+App.layersToModel = function(layers) {
+    var model = [];
+    for (var i =0, ii=layers.length; i<ii; ++i) {
+        model.push(new App.MapLayer(layers[i]));
+    }
+    return model;
+};
+
+App.IndexRoute = Ember.Route.extend({
+    model: function() {
+        return App.layersToModel(map.getLayers().getArray());
+    }
+});

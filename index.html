@@ -20,7 +20,7 @@
     {{outlet}}
   </script>
 
-  <script type="text/x-handlebars" id="index">
+  <script type="text/x-handlebars" id="components/layer-switcher">
     <ul>Layers
     {{#each item in model}}
       <li>
@@ -29,6 +29,10 @@
       </li>
     {{/each}}
     </ul>
+  </script>
+
+  <script type="text/x-handlebars" id="index">
+    {{layer-switcher model=model}}
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
