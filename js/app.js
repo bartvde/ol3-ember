@@ -1,5 +1,24 @@
 App = Ember.Application.create();
 
+App.MapLayer = Ember.Object.extend({
+    title: null,
+    visible: null,
+    init: function(layer) {
+        this.title = layer.get('title');
+        this.visible = layer.get('visible');
+        this.addObserver('visible', layer, function(evt) {
+            this.set('visible', evt.get('visible'));
+        });
+        layer.on('change:title', function(evt) {
+            this.set('title', evt.target.get('title'));
+        }, this);
+        layer.on('change:visible', function(evt) {
+            this.set('visible', evt.target.get('visible'));
+        }, this);
+        delete this.layer;
+    }
+});
+
 App.Router.map(function() {
     // put your routes here
 });
@@ -46,23 +65,8 @@ App.IndexController = Ember.ArrayController.extend({
     var layers = lc.getArray();
     for (var i =0, ii=layers.length; i<ii; ++i) {
         var layer = layers[i];
-        var obj = Ember.Object.create({
-            title: layer.get('title'),
-            visible: layer.get('visible')
-        });
-        // if the visible checkbox is used, update our layer object
-        obj.addObserver('visible', layer, function(evt) {
-            this.set('visible', evt.get('visible'));
-        });
-        this.pushObject(obj);
-        // if our layer's title is changed, update our Ember object
-        layer.on('change:title', function(evt) {
-            this.set('title', evt.target.get('title'));
-        }, obj);
-        // if our layer's visible property is changed, update our Ember object
-        layer.on('change:visible', function(evt) {
-            this.set('visible', evt.target.get('visible'));
-        }, obj);
+        var mapLayer = new App.MapLayer(layer);
+        this.pushObject(mapLayer);
     }
   },
   actions: {
