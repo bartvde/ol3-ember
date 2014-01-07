@@ -21,7 +21,7 @@
   </script>
 
   <script type="text/x-handlebars" id="components/layer-switcher">
-    <ul>Layers
+    <ul>{{group}}
     {{#each item in model}}
       <li>
         {{view Ember.Checkbox checkedBinding="item.visible"}} {{item.title}}
@@ -32,12 +32,15 @@
   </script>
 
   <script type="text/x-handlebars" id="index">
-    {{layer-switcher model=model}}
+    {{#each group in groupedContent}}
+        {{layer-switcher group=group.name model=group.content}}
+    {{/each}}
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>
   <script src="js/libs/handlebars-1.1.2.js"></script>
   <script src="js/libs/ember-1.2.0.js"></script>
+  <script src="js/libs/groupable.js"></script>
   <script src="js/libs/ol.js"></script>
   <script src="js/boundless.js"></script>
   <script src="js/app.js"></script>

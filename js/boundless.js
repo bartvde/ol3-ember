@@ -5,9 +5,11 @@ Boundless = Ember.Namespace.create({
 Boundless.MapLayer = Ember.Object.extend({
     title: null,
     visible: null,
+    group: null,
     init: function(layer) {
         this.title = layer.get('title');
         this.visible = layer.get('visible');
+        this.group = layer.get('group');
         this.addObserver('visible', layer, function(evt) {
             this.set('visible', evt.get('visible'));
         });

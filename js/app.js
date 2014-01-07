@@ -10,23 +10,37 @@ App.Router.map(function() {
 var map = new ol.Map({
     renderer: ol.RendererHint.CANVAS,
     layers: [new ol.layer.Tile({
-        title: "Global Imagery",
-        source: new ol.source.TileWMS({
-            url: 'http://maps.opengeo.org/geowebcache/service/wms',
-            params: {'LAYERS': 'bluemarble', 'VERSION': '1.1.1'}
-        })
+        title: "Streets",
+        group: "Basemaps",
+        exclusive: true,
+        source: new ol.source.MapQuestOSM()
+    }),
+    new ol.layer.Tile({
+        title: "Aerial",
+        group: "Basemaps",
+        exclusive: true,
+        visible: false,
+        source: new ol.source.MapQuestOpenAerial()
     }),
     new ol.layer.Vector({
-        title: 'Countries',
+        title: 'Boroughs',
+        group: 'Overlay Layers',
+        style: new ol.style.Style({symbolizers: [
+            new ol.style.Stroke({
+                color: 'black',
+                width: 4,
+                opacity: 1
+            })
+        ]}),
         source: new ol.source.Vector({
             parser: new ol.parser.GeoJSON(),
-            url: 'data/countries.json'
+            url: 'data/boroughs.geojson'
         })
     })],
     view: new ol.View2D({
-        projection: 'EPSG:4326',
-        center: [0, 0],
-        zoom: 1
+        center: ol.proj.transform(
+            [-73.979378, 40.702222], 'EPSG:4326', 'EPSG:3857'),
+        zoom: 10
     })
 });
 
@@ -41,4 +55,8 @@ App.IndexRoute = Ember.Route.extend({
     model: function() {
         return Boundless.layersToModel(map.getLayers().getArray());
     }
+});
+
+App.IndexController = Ember.ArrayController.extend(Ember.GroupableMixin, {
+  groupBy: 'group'
 });
