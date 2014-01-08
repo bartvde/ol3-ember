@@ -24,9 +24,6 @@ Boundless.MapLayer = Ember.Object.extend({
         this.visible = layer.get('visible');
         this.group = layer.get('group');
         this.exclusive = layer.get('exclusive');
-        this.addObserver('selected', layer, function(evt) {
-            this.set('visible', (evt.get('selected') === 'on'));
-        });
         this.addObserver('visible', layer, function(evt) {
             this.set('visible', evt.get('visible'));
         });
