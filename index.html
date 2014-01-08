@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ember - OpenLayers 3</title>
+<title>Ember.js - OpenLayers 3</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/ol.css">
@@ -64,7 +64,7 @@
         {{view Ember.Checkbox checkedBinding="item.visible"}} {{item.title}}
         {{/if}}
         <button class="btn btn-default btn-xs" {{action "removeSelected" item}}>
-          <span class="glyphicon glyphicon-remove"></span>
+          <span class="glyphicon glyphicon-trash"></span>
         </button>
       </li>
     {{/each}}
