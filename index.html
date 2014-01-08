@@ -55,7 +55,7 @@
   </script>
 
   <script type="text/x-handlebars" id="components/layer-switcher">
-    <ul>{{group}}
+    <ul><h4>{{group}}</h4>
     {{#each item in model}}
       <li>
         {{#if item.exclusive}}
@@ -63,7 +63,9 @@
         {{else}}
         {{view Ember.Checkbox checkedBinding="item.visible"}} {{item.title}}
         {{/if}}
-        <button {{action "removeSelected" item}}>Remove</button>
+        <button class="btn btn-default btn-xs" {{action "removeSelected" item}}>
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
       </li>
     {{/each}}
     </ul>
