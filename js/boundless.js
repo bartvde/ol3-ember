@@ -58,10 +58,13 @@ Boundless.LayerSwitcherComponent = Ember.Component.extend({
   },
   actions: {
     removeSelected: function(item) {
-        var idx = this.model.indexOf(item);
-        if (idx !== -1) {
-            map.getLayers().removeAt(idx);
-        }
+        var title = item.get('title'), idx;
+        map.getLayers().forEach(function(el, index) {
+            if (el.get('title') === title) {
+                idx = index;
+            }
+        });
+        map.getLayers().removeAt(idx);
         this.model.removeObject(item);
     }
   }
