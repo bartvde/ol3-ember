@@ -3,7 +3,7 @@ App = Ember.Application.create();
 App.LayerSwitcherComponent = Boundless.LayerSwitcherComponent;
 
 App.Router.map(function() {
-    // put your routes here
+    this.route("about");
 });
 
 // create the OpenLayers Map and its layers
