@@ -24,7 +24,11 @@
     <ul>{{group}}
     {{#each item in model}}
       <li>
+        {{#if item.exclusive}}
+        <label>{{view Ember.RadioButton name=group selectionBinding="selected" valueBinding="item.title" checkedBinding="item.visible"}} {{item.title}}</label>
+        {{else}}
         {{view Ember.Checkbox checkedBinding="item.visible"}} {{item.title}}
+        {{/if}}
         <button {{action "removeSelected" item}}>Remove</button>
       </li>
     {{/each}}

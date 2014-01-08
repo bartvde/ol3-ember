@@ -11,6 +11,7 @@ var map = new ol.Map({
     renderer: ol.RendererHint.CANVAS,
     layers: [new ol.layer.Tile({
         title: "Streets",
+        visible: false,
         group: "Basemaps",
         exclusive: true,
         source: new ol.source.MapQuestOSM()
@@ -19,7 +20,7 @@ var map = new ol.Map({
         title: "Aerial",
         group: "Basemaps",
         exclusive: true,
-        visible: false,
+        visible: true,
         source: new ol.source.MapQuestOpenAerial()
     }),
     new ol.layer.Vector({
