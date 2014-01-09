@@ -61,10 +61,10 @@
         <label>{{view Ember.RadioButton name=group selectionBinding="selected" valueBinding="item.title" checkedBinding="item.visible"}} {{item.title}}</label>
         {{else}}
         {{view Ember.Checkbox checkedBinding="item.visible"}} {{item.title}}
-        {{/if}}
         <button class="btn btn-default btn-xs" {{action "removeSelected" item}}>
           <span class="glyphicon glyphicon-trash"></span>
         </button>
+        {{/if}}
       </li>
     {{/each}}
     </ul>
