@@ -10,20 +10,20 @@ App.Map = new ol.Map({
     renderer: ol.RendererHint.CANVAS,
     layers: [new ol.layer.Tile({
         title: "Streets",
-        group: "Basemaps",
+        group: "Base Maps",
         exclusive: true,
         source: new ol.source.MapQuest({layer: 'osm'})
     }),
     new ol.layer.Tile({
         title: "Aerial",
-        group: "Basemaps",
+        group: "Base Maps",
         exclusive: true,
         visible: false,
         source: new ol.source.MapQuest({layer: 'sat'})
     }),
     new ol.layer.Vector({
         title: 'Zoning',
-        group: 'Overlay Layers',
+        group: 'Overlays',
         style: new ol.style.Style({symbolizers: [
             new ol.style.Stroke({
                 color: 'black',
