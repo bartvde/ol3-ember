@@ -74,7 +74,7 @@
     {{map-panel}}
     <div class="col-md-4" id="layer-manager">
     {{#each group in groupedContent}}
-        {{layer-switcher group=group.name model=group.content}}
+        {{layer-switcher map=App.Map group=group.name model=group.content}}
     {{/each}}
     </div>
   </script>
@@ -89,7 +89,7 @@
   <script src="js/libs/handlebars-1.1.2.js"></script>
   <script src="js/libs/ember-1.2.0.js"></script>
   <script src="js/libs/groupable.js"></script>
-  <script src="js/libs/ol.js"></script>
+  <script src="js/libs/ol-whitespace.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
   <script src="js/boundless.js"></script>
   <script src="js/app.js"></script>

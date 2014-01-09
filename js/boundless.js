@@ -49,7 +49,7 @@ Boundless.LayerSwitcherComponent = Ember.Component.extend({
               }
           });
       });
-      var lc = map.getLayers();
+      var lc = this.map.getLayers();
       // if an item is removed from the layers collection, update our view
       lc.on('remove', function(evt) {
           var el = evt.getElement();
@@ -59,12 +59,12 @@ Boundless.LayerSwitcherComponent = Ember.Component.extend({
   actions: {
     removeSelected: function(item) {
         var title = item.get('title'), idx;
-        map.getLayers().forEach(function(el, index) {
+        this.map.getLayers().forEach(function(el, index) {
             if (el.get('title') === title) {
                 idx = index;
             }
         });
-        map.getLayers().removeAt(idx);
+        this.map.getLayers().removeAt(idx);
         this.model.removeObject(item);
     }
   }
