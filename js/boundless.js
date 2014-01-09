@@ -72,7 +72,7 @@ Boundless.LayerSwitcherComponent = Ember.Component.extend({
 
 Boundless.layersToModel = function(layers) {
     var model = [];
-    for (var i =0, ii=layers.length; i<ii; ++i) {
+    for (var i = layers.length-1; i >= 0; --i) {
         model.push(new Boundless.MapLayer(layers[i]));
     }
     return model;
