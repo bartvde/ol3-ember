@@ -13,14 +13,8 @@
     body {
       padding-top: 50px;
     }
-    #map {
-      height: 256px;
-      width: 512px;
-    }
-    #layer-manager {
-      position: absolute;
-      left: 650px;
-      top: 60px;
+    .ol-logo, .ol-attribution {
+      bottom: 5px;
     }
   </style>
 </head>
@@ -56,7 +50,7 @@
   </script>
 
   <script type="text/x-handlebars" id="components/map-panel">
-    <div id="map"></div>
+    <div id="map" class="col-md-8"></div>
   </script>
 
   <script type="text/x-handlebars" id="components/layer-switcher">
@@ -78,7 +72,7 @@
 
   <script type="text/x-handlebars" id="index">
     {{map-panel}}
-    <div class="container" id="layer-manager">
+    <div class="col-md-4" id="layer-manager">
     {{#each group in groupedContent}}
         {{layer-switcher group=group.name model=group.content}}
     {{/each}}

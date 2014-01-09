@@ -49,6 +49,7 @@ App.IndexView = Ember.View.extend({
   didInsertElement: function() {
       // bind the map to the div from the handlebars template
       map.set('target', 'map');
+      map.updateSize();
   }
 });
 
