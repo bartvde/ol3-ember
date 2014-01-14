@@ -65,7 +65,6 @@ Boundless.LayerSwitcherComponent = Ember.Component.extend({
             }
         });
         this.map.getLayers().removeAt(idx);
-        this.model.removeObject(item);
     }
   }
 });
