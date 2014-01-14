@@ -63,7 +63,8 @@
     {{#each item in model}}
       <li>
         {{#if item.exclusive}}
-        <label>{{view Ember.RadioButton name=group selectionBinding="selected" valueBinding="item.title" checkedBinding="item.visible"}} {{item.title}}</label>
+        <label>{{view Ember.RadioButton name=group selectionBinding="selected"
+            valueBinding="item.title" checkedBinding="item.visible"}} {{item.title}}</label>
         {{else}}
         {{view Ember.Checkbox checkedBinding="item.visible"}} {{item.title}}
         <button class="btn btn-default btn-xs" {{action "removeSelected" item}}>
