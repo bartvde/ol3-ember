@@ -52,7 +52,7 @@ Boundless.LayerSwitcherComponent = Ember.Component.extend({
       var lc = this.map.getLayers();
       // if an item is removed from the layers collection, update our view
       lc.on('remove', function(evt) {
-          var el = evt.getElement();
+          var el = evt.element;
           this.model.removeObject(this.model.findBy('title', el.get('title')));
       }, this);
   },

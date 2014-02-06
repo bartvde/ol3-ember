@@ -6,6 +6,13 @@ App.Router.map(function() {
     this.route("about");
 });
 
+var style = [new ol.style.Style({
+    stroke: new ol.style.Stroke({
+        color: 'black',
+        width: 4
+    })
+})];
+
 App.Map = new ol.Map({
     renderer: ol.RendererHint.CANVAS,
     layers: [new ol.layer.Tile({
@@ -24,15 +31,11 @@ App.Map = new ol.Map({
     new ol.layer.Vector({
         title: 'Zoning',
         group: 'Overlays',
-        style: new ol.style.Style({symbolizers: [
-            new ol.style.Stroke({
-                color: 'black',
-                width: 4,
-                opacity: 1
-            })
-        ]}),
-        source: new ol.source.Vector({
-            parser: new ol.parser.GeoJSON(),
+        styleFunction: function(feature, resolution) {
+            return style;
+        },
+        source: new ol.source.GeoJSON({
+            projection: 'EPSG:3857',
             url: 'data/medford-zoning.json'
         })
     })],
